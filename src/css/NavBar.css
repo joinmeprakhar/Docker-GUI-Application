@@ -1,0 +1,61 @@
+/* Nav Bar Code */
+
+.color {
+  background-color: black;
+  color: whitesmoke;
+}
+.navbar {
+  background-color: #fff !important;
+}
+
+.nav-menu-color{
+  color: white;
+}
+
+.navbar-brand {
+  font-size: 1.9rem !important;
+  color: #000 !important;
+}
+
+.navbar a {
+  font-size: 1.3rem;
+  text-transform: capitalize;
+}
+
+.menu_active {
+  font-weight: bold;
+  border-bottom: 1px solid #565387;
+}
+
+.navbar a:hover {
+  /* color: #3498db !important; */
+  background-color: blue;
+
+}
+
+.navbar-menu {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .navbar-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  .navbar-toggle {
+    display: none;
+  }
+}
+
+@media (max-width: 991px) {
+  .navbar-brand {
+    font-size: 1.5rem !important;
+  }
+
+  .menu_active {
+    font-weight: bold;
+    border-bottom: none;
+  }
+}
