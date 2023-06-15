@@ -1,5 +1,3 @@
-# Docker Frontend - ReactJS
-
 ## Our Services
 
 ```
@@ -18,7 +16,8 @@
 
 ### Start and run Docker GUI Application
 ```
-apt install git npm nodejs -y
+yum install nodejs -y
+yum install git -y
 npm install
 npm start
 ```
@@ -128,118 +127,3 @@ To view the logs of a running Docker container, open a terminal or command promp
 docker logs <container-id>
 ```
 Replace <container-id> with the ID or name of the container you want to view the logs for. By default, this command will show you the logs since the container was started.
-
-
-# Docker Backend - Python
-
-Backend folder contains the Code for Docker backend API. Make sure you have put the correct IP address in main.py file before running Flask API. routes directory contains all the basic services which is provided through the API. 
-
-## System Requirement
-
-| Software | Version |
-| --- | --- |
-| Ubuntu | 22.04 |
-| Docker Version | 1.13.1 |
-| Python Version | 2.7.5 |
-| pip3 Version | pip 9.0.3 from /usr/lib/python3.6/site-packages (python 3.6) |
-
-### Add docker.repo to /etc/yum.repos.d/ location
-```
-[docker]
-baseurl = https://download.docker.com/linux/centos/7/x86_64/stable/
-gpgcheck=0
-
-```
-
-## How to setup environment for Python API ?
-
-## Step 1
-
-### Install below tools
-```
-apt install python3 git pip vim docker.io -y 
-```
-
-### Start and Enable Docker Services
-```
-systemctl start docker
-systemctl enable docker
-```
-
-
-## Step 2
-
-### Install Basic Python Modules
-```
-sudo pip3 install flask Flask-CORS docker flask-restful
-
-```
-
-### Useful links 
-
-- https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04
-- https://www.digitalocean.com/community/questions/nginx-as-a-reverse-proxy-on-port-3000-fails
-
-# Setup for NGINX Proxy Server (Ubuntu 20.04)
-
-This is for applying encryption in Docker GUI application. This requires the Ubuntu OS (latest ).
-
-## Step 1 
-```
-apt update -y
-sudo apt install certbot python3-certbot-nginx -y
-```
-
-## Step 2 ( add below line to the given path 
-```
-sudo vim /etc/nginx/sites-available/satyamkumar.tech
-    << 
-     server_name satyamkumar.tech www.satyamkumar.tech;
-```
-## Step 3 
-```
-sudo nginx -t
-sudo systemctl reload nginx
-```
-
-## Step 4 ( first update IP to hostiner then run below command otherwise it will fail.
-```
-sudo certbot --nginx -d satyamkumar.tech -d www.satyamkumar.tech
-```
-
-### Build the Dockerfile
-```
-docker build -t satyam0786/dockergui:latest .
-docker run  --restart=always -dit -p 3000:3000 --name dockergui satyam0786/dockergui:latest
-
-```
-
-### Add below block in /etc/nginx/sites-available/default path
-to know more refer this - https://www.digitalocean.com/community/questions/nginx-as-a-reverse-proxy-on-port-3000-fails
-```
-location / {
-                proxy_pass http://65.1.91.102:3000;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection 'upgrade';
-                proxy_set_header Host $host;
-                proxy_cache_bypass $http_upgrade;
-         }
-location /api {
-                proxy_pass http://65.1.91.102:5000/;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection 'upgrade';
-                proxy_set_header Host $host;
-                proxy_cache_bypass $http_upgrade;
-        }
-```
-
-
-
-
-
-
-
-
-
